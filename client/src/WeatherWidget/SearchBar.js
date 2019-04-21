@@ -22,6 +22,7 @@ export default class SearchBar extends Component{
     this.onSubmit = this.onSubmit.bind(this);
     this.setLoading = this.setLoading.bind(this);
     this.handleSearchError = this.handleSearchError.bind(this);
+    this.getWeather = this.getWeather.bind(this);
   }
   setLoading(bool){
     const update = {
@@ -42,33 +43,44 @@ export default class SearchBar extends Component{
     this.setState(update);
   }
   handleSearchError(err){
+    console.log(err);
     this.setState({error:err.message,loading:false});
   }
-  onSubmit(e){
-    e.preventDefault();
-    if(this.props.transitioning||this.state.loading) return;
+
+  getWeather(search){
     this.setLoading(true);
-    if(this.state.search===''){
-      return navigator
-        .geolocation
-        .getCurrentPosition(pos=>{
-          const {latitude,longitude} = pos.coords;
-          fetchWeather(`[${latitude},${longitude}]`)
-          .then(res=>{
-            this.setLoading(false);
-            return res;
-          })
-          .then(this.props.onFound)
-          .catch(this.handleSearchError)
-        })
-    }
-    fetchWeather(this.state.search)
+    fetchWeather(search)
     .then(res=>{
       this.setLoading(false);
       return res;
     })
     .then(this.props.onFound)
-    .catch(this.handleSearchError)
+    .catch(this.handleSearchError);
+  }
+
+  handleGeolocation(){
+    if(navigator && navigator.geolocation){
+      return navigator
+        .geolocation
+        .getCurrentPosition(pos=>{
+          const {latitude,longitude} = pos.coords;
+          this.getWeather(`[${latitude},${longitude}]`);
+        },posError=>{
+          this.handleSearchError({message:"Geolocation permission denied."})
+        })
+    }else{
+      this.handleSearchError({message:"Geolocation unavailable."})
+    }
+  }
+
+  onSubmit(e){
+    e.preventDefault();
+    if(this.props.transitioning||this.state.loading) return;
+    if(this.state.search===''){
+      this.handleGeolocation();
+    }else{
+      this.getWeather(this.state.search);
+    }
   }
 
   render(){
