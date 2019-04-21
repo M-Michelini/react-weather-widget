@@ -1,6 +1,8 @@
 import React from 'react'
 import './OpenWeatherIcon.css';
 
+//TODO: fix alts breaking page on mobile.
+
 const OpenWeatherIcon = ({
  weather
 }) => (
