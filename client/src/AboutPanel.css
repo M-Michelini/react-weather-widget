@@ -27,12 +27,13 @@
 }
 
 #about-panel{
+  position:relative;
   display:flex;
   flex-direction: column;
   margin-top: 85px;
   height:calc(100% - 100px);
   width: 75%;
-  max-width:550px;
+  max-width:650px;
   padding-left:40px;
   padding-right:40px;
   background-color: #282828;
@@ -52,5 +53,10 @@
 @media only screen and (max-width: 768px) {
   #about-panel{
     height:calc(100% - 85px);
+  }
+}
+@media only screen and (max-width: 400px) {
+  #about-panel{
+    overflow-y:auto;
   }
 }

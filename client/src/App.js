@@ -29,10 +29,10 @@ class App extends Component {
         <OpacityBackgroundImg imgSrc={'weather-background.jpg'} opacity={0.2} />
         <div className='app'>
           <h1 className='app-header'>Weather Widget</h1>
-          {this.state.about?<AboutPanel close={this.closeAboutPanel}/>:null}
           <WeatherWidget />
           <Footer openAboutPanel={this.openAboutPanel}/>
         </div>
+        {this.state.about?<AboutPanel close={this.closeAboutPanel}/>:null}
       </div>
     );
   }
