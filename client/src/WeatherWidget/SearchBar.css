@@ -10,8 +10,10 @@
 
 .search-bar{
   font-size: 1.5em;
+  box-sizing:border-box;
   padding:10px;
   outline:none;
+  border-radius: 0;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   border:none;
@@ -24,6 +26,7 @@
   outline:none;
   border:none;
   cursor:pointer;
+  background-color: lightgray;
 }
 #search-error{
   color:red;
