@@ -7,7 +7,7 @@ const OpenWeatherIcon = ({
   <div className='weather-icon-container'>
     <img
       className='weather-icon'
-      src={`http://openweathermap.org/img/w/${weather.icon}.png`}
+      src={`https://openweathermap.org/img/w/${weather.icon}.png`}
       alt={weather.description}
     />
   </div>
